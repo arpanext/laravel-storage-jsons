@@ -1,5 +1,5 @@
 {
-    "name": "arpanext/mongo-api-lpkg",
+    "name": "arpanext/laravel-mongo-api",
     "authors": [
         {
             "name": "Arpanext",
@@ -12,14 +12,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Arpanext\\MongoApiLpkg\\": "/src/"
+            "Arpanext\\MongoApi\\": "/src/"
         }
     },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
-                "Arpanext\\MongoApiLpkg\\App\\Providers\\AppServiceProvider"
+                "Arpanext\\MongoApi\\App\\Providers\\AppServiceProvider"
             ]
         }
     }
