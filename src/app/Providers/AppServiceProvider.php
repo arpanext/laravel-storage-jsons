@@ -1,6 +1,6 @@
 <?php
 
-namespace Arpanext\MongoApiLpkg\App\Providers;
+namespace Arpanext\MongoApi\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
