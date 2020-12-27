@@ -12,14 +12,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Arpanext\\MongoApi\\": "/src/"
+            "Arpanext\\Mongo\\": "/src/"
         }
     },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
-                "Arpanext\\MongoApi\\App\\Providers\\AppServiceProvider"
+                "Arpanext\\Mongo\\App\\Providers\\AppServiceProvider"
             ]
         }
     }
