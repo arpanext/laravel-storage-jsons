@@ -13,7 +13,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->router->group(
+            [
+                'namespace' => 'Arpanext\Mongo\App\Http\Controllers\Api',
+                'middleware' => [
+                    //
+                ],
+                'as' => 'api.v1.mongo.',
+                'prefix' => '/api/v1/mongo',
+            ],
+            function () {
+                require __DIR__ . '/../../routes/api.php';
+            }
+        );
     }
 
     /**
