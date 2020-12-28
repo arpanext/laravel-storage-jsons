@@ -107,9 +107,6 @@ class InsertOneController extends Controller
         $insertOneResult = $collection->insertOne(json_decode($request->getContent()));        
 
         return response()->json([
-            'meta' => [
-                //
-            ],
             'data' => [
                 'type' => $collectionName,
                 'id' => (string) $insertOneResult->getInsertedId(),
