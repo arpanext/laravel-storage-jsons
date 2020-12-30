@@ -36,7 +36,8 @@ class InsertOneController extends Controller
      *         )
      *     ),
      *     @OA\RequestBody(
-     *         description="",
+     *         description="Document",
+     *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/vnd.api+json",
      *             @OA\Schema(
@@ -64,7 +65,7 @@ class InsertOneController extends Controller
     ""catchPhrase"": ""Multi-layered client-server neural-net"",
     ""bs"": ""harness real-time e-markets""
   }
-}" 
+}"
      *             ),
      *         ),
      *     ),
@@ -75,6 +76,13 @@ class InsertOneController extends Controller
      *             mediaType="application/vnd.api+json",
      *             @OA\Schema(
      *                 type="object",
+     *                 example=
+"{
+  ""data"": {
+    ""type"": ""collection"",
+    ""id"": ""5febd824dbf443384045c3c0""
+  }
+}"
      *             ),
      *         ),
      *     ),
@@ -96,15 +104,15 @@ class InsertOneController extends Controller
      *
      * @return JsonResponse
      */
-    public function __invoke(Request $request, string $database_name, string $collectionName): JsonResponse
+    public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
         $client = new \MongoDB\Client(
             'mongodb://root:password@127.0.0.1:27017/admin?retryWrites=true&w=majority'
         );
 
-        $collection = $client->{$database_name}->{$collectionName};
+        $collection = $client->{$databaseName}->{$collectionName};
 
-        $insertOneResult = $collection->insertOne(json_decode($request->getContent()));        
+        $insertOneResult = $collection->insertOne(json_decode($request->getContent()));
 
         return response()->json([
             'data' => [
