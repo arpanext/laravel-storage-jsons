@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->router->group(
             [
-                'namespace' => 'Arpanext\Mongo\App\Http\Controllers\Api\Storage\Jsons',
+                'namespace' => 'Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons',
                 'middleware' => [
                     //
                 ],
