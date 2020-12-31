@@ -1,5 +1,5 @@
 {
-    "name": "arpanext/laravel-mongo",
+    "name": "arpanext/laravel-storage-jsons",
     "authors": [
         {
             "name": "Arpanext",
@@ -13,14 +13,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Arpanext\\Mongo\\": "/src/"
+            "Arpanext\\Storage\\Jsons\\": "/src/"
         }
     },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
-                "Arpanext\\Mongo\\App\\Providers\\AppServiceProvider"
+                "Arpanext\\Storage\\Jsons\\App\\Providers\\AppServiceProvider"
             ]
         }
     }

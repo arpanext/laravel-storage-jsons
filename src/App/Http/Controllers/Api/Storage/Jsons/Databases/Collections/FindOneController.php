@@ -1,6 +1,6 @@
 <?php
 
-namespace Arpanext\Mongo\App\Http\Controllers\Api\Mongo\Databases\Collections;
+namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Mongo\Databases\Collections;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -10,7 +10,7 @@ class FindOneController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/v1/mongo/databases/{databaseName}/collections/{collectionName}/findOne",
+     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findOne",
      *     tags={"Collections"},
      *     description="",
      *     @OA\Parameter(
@@ -102,7 +102,7 @@ class FindOneController extends Controller
      *     ),
      * )
      */
-    
+
     /**
      * Handle the incoming request.
      *

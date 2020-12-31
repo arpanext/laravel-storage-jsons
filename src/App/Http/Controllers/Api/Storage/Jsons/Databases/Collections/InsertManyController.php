@@ -1,6 +1,6 @@
 <?php
 
-namespace Arpanext\Mongo\App\Http\Controllers\Api\Mongo\Databases\Collections;
+namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Mongo\Databases\Collections;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -10,7 +10,7 @@ class InsertManyController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/api/v1/mongo/databases/{databaseName}/collections/{collectionName}/insertMany",
+     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/insertMany",
      *     tags={"Collections"},
      *     description="",
      *     @OA\Parameter(
@@ -156,7 +156,7 @@ class InsertManyController extends Controller
      *     ),
      * )
      */
-    
+
     /**
      * Handle the incoming request.
      *

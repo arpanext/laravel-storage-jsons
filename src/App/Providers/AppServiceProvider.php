@@ -1,6 +1,6 @@
 <?php
 
-namespace Arpanext\Mongo\App\Providers;
+namespace Arpanext\Storage\Jsons\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -15,12 +15,12 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->router->group(
             [
-                'namespace' => 'Arpanext\Mongo\App\Http\Controllers\Api',
+                'namespace' => 'Arpanext\Mongo\App\Http\Controllers\Api\Storage\Jsons',
                 'middleware' => [
                     //
                 ],
-                'as' => 'api.v1.mongo.',
-                'prefix' => '/api/v1/mongo',
+                'as' => 'api.v1.storage.jsons.',
+                'prefix' => '/api/v1/storage/jsons',
             ],
             function () {
                 require __DIR__ . '/../../routes/api.php';

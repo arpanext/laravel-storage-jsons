@@ -1,6 +1,6 @@
 <?php
 
-namespace Arpanext\Mongo\App\Http\Controllers\Api\Mongo\Databases;
+namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Mongo\Databases;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -10,8 +10,8 @@ class CommandController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/api/v1/mongo/databases/{databaseName}/command",
-     *     tags={"Commands"},
+     *     path="/api/v1/storage/jsons/databases/{databaseName}/command",
+     *     tags={"Databases"},
      *     description="",
      *     @OA\Parameter(
      *         name="databaseName",
@@ -67,7 +67,7 @@ class CommandController extends Controller
      *     ),
      * )
      */
-    
+
     /**
      * Handle the incoming request.
      *
