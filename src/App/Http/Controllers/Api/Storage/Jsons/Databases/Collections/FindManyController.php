@@ -1,6 +1,6 @@
 <?php
 
-namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Mongo\Databases\Collections;
+namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
