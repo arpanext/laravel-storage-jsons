@@ -106,13 +106,13 @@ class InsertOneController extends Controller
      */
     public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
-        $collection = app()->Mongo->client->{$databaseName}->{$collectionName};
+        $collection = app()->Mongo->getClient()->{$databaseName}->{$collectionName};
 
         $insertOneResult = $collection->insertOne(json_decode($request->getContent()));
 
         return response()->json([
             'insertedId' => $insertOneResult->getInsertedId(),
             'isAcknowledged' => $insertOneResult->isAcknowledged(),
-        ]);
+        ], 201);
     }
 }

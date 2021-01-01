@@ -136,7 +136,7 @@ class InsertManyController extends Controller
      */
     public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
-        $collection = app()->Mongo->client->{$databaseName}->{$collectionName};
+        $collection = app()->Mongo->getClient()->{$databaseName}->{$collectionName};
 
         $insertManyResult = $collection->insertMany(json_decode($request->getContent()));
 
@@ -145,6 +145,6 @@ class InsertManyController extends Controller
                 return $objectId;
             }, $insertManyResult->getInsertedIds()),
             'isAcknowledged' => $insertManyResult->isAcknowledged(),
-        ]);
+        ], 201);
     }
 }

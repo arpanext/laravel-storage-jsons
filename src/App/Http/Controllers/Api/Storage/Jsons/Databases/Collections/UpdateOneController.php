@@ -84,13 +84,11 @@ class UpdateOneController extends Controller
      */
     public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
-        $collection = app()->Mongo->client->{$databaseName}->{$collectionName};
+        $collection = app()->Mongo->getClient()->{$databaseName}->{$collectionName};
 
         $filter = json_decode($request->filter);
 
-        if (isset($filter->_id->{'$oid'})) {
-            $filter->_id = new ObjectId($filter->_id->{'$oid'});
-        }
+        ! isset($filter->_id->{'$oid'}) ?: $filter->_id = new ObjectId($filter->_id->{'$oid'});
 
         $updateResult = $collection->updateOne($filter, json_decode($request->getContent()));
 

@@ -131,15 +131,13 @@ class FindOneController extends Controller
      */
     public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
-        $collection = app()->Mongo->client->{$databaseName}->{$collectionName};
+        $collection = app()->Mongo->getClient()->{$databaseName}->{$collectionName};
 
         $filter = json_decode($request->filter);
 
         $options = json_decode($request->options, true);
 
-        if (isset($filter->_id->{'$oid'})) {
-            $filter->_id = new ObjectId($filter->_id->{'$oid'});
-        }
+        ! isset($filter->_id->{'$oid'}) ?: $filter->_id = new ObjectId($filter->_id->{'$oid'});
 
         $bsonDocument = $collection->findOne($filter, $options);
 

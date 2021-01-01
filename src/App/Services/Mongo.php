@@ -6,6 +6,8 @@ use MongoDB\Client;
 
 class Mongo
 {
+    private $client;
+
     public function __construct()
     {
         $this->client = new Client(
@@ -13,7 +15,7 @@ class Mongo
         );
     }
 
-    public function client()
+    public function getClient()
     {
         return $this->client;
     }

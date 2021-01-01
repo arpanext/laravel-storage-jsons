@@ -71,7 +71,7 @@ class ExecuteController extends Controller
      */
     public function __invoke(Request $request, string $databaseName): JsonResponse
     {
-        $cursor = app()->Mongo->client->{$databaseName}->command(json_decode($request->getContent()));
+        $cursor = app()->Mongo->getClient()->{$databaseName}->command(json_decode($request->getContent()));
 
         return response()->json(array_map(function ($bsonDocument) { return $bsonDocument; }, $cursor->toArray()));
     }
