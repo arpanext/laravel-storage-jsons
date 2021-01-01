@@ -1,12 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class DeleteManyTest extends TestCase
+class FindManyTest extends TestCase
 {
     /**
+     * Get many object.
+     *
      * @return void
      */
     public function testOK()
@@ -60,8 +62,9 @@ class DeleteManyTest extends TestCase
             ]
         ]);
 
-        $response = $this->delete('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/deleteMany?' . http_build_query([
+        $response = $this->get('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/findMany?' . http_build_query([
             'filter' => '{ "$or": [ { "name": "Leanne Graham" }, { "name": "Ervin Howell" } ] }',
+            'options' => '{"sort":{"_id":-1}}',
         ]));
 
         $response->assertStatus(200);

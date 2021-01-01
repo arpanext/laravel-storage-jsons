@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class UpdateOneTest extends TestCase
+class InsertOneTest extends TestCase
 {
     /**
      * Get many object.
      *
      * @return void
      */
-    public function testOK()
+    public function testCreated()
     {
         $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/insertOne', [
             "id" => 1,
@@ -37,14 +37,6 @@ class UpdateOneTest extends TestCase
             ]
         ]);
 
-        $response = $this->json('PATCH', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/updateOne?' . http_build_query([
-            'filter' => '{"id":1,"name":"Leanne Graham","email":"Sincere@april.biz"}',
-        ]), [
-            '$set' => [
-              'name' => 'N/A',
-            ],
-        ]);
-
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 }

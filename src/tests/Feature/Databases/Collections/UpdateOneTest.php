@@ -1,12 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class FindOneTest extends TestCase
+class UpdateOneTest extends TestCase
 {
     /**
+     * Get many object.
+     *
      * @return void
      */
     public function testOK()
@@ -35,21 +37,14 @@ class FindOneTest extends TestCase
             ]
         ]);
 
-        $response = $this->get('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/findOne?' . http_build_query([
+        $response = $this->json('PATCH', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/updateOne?' . http_build_query([
             'filter' => '{"id":1,"name":"Leanne Graham","email":"Sincere@april.biz"}',
-            'options' => '{"sort":{"_id":-1}}',
-        ]));
+        ]), [
+            '$set' => [
+              'name' => 'N/A',
+            ],
+        ]);
 
         $response->assertStatus(200);
-    }
-
-    public function testNotFound()
-    {
-        $response = $this->get('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/findOne?' . http_build_query([
-            'filter' => '{"id":3,"name":"Leanne Graham","email":"Sincere@april.biz"}',
-            'options' => '{"sort":{"_id":-1}}',
-        ]));
-
-        $response->assertStatus(404);
     }
 }

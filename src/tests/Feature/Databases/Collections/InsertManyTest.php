@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class UpdateManyTest extends TestCase
+class InsertManyTest extends TestCase
 {
     /**
      * Get many object.
      *
      * @return void
      */
-    public function testOK()
+    public function testCreated()
     {
         $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/insertMany', [
             [
@@ -62,14 +62,6 @@ class UpdateManyTest extends TestCase
             ]
         ]);
 
-        $response = $this->json('PATCH', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/updateMany?' . http_build_query([
-            'filter' => '{ "$or": [ { "name": "Leanne Graham" }, { "name": "Ervin Howell" } ] }',
-        ]), [
-            '$set' => [
-              'name' => 'N/A',
-            ],
-        ]);
-
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 }

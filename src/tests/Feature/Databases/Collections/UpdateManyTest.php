@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class FindManyTest extends TestCase
+class UpdateManyTest extends TestCase
 {
     /**
      * Get many object.
@@ -62,10 +62,13 @@ class FindManyTest extends TestCase
             ]
         ]);
 
-        $response = $this->get('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/findMany?' . http_build_query([
+        $response = $this->json('PATCH', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/updateMany?' . http_build_query([
             'filter' => '{ "$or": [ { "name": "Leanne Graham" }, { "name": "Ervin Howell" } ] }',
-            'options' => '{"sort":{"_id":-1}}',
-        ]));
+        ]), [
+            '$set' => [
+              'name' => 'N/A',
+            ],
+        ]);
 
         $response->assertStatus(200);
     }

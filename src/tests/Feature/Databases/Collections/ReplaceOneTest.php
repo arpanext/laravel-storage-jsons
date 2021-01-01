@@ -1,12 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class DeleteOneTest extends TestCase
+class ReplaceOneTest extends TestCase
 {
     /**
+     * Replace one object.
+     *
      * @return void
      */
     public function testOK()
@@ -35,9 +37,31 @@ class DeleteOneTest extends TestCase
             ]
         ]);
 
-        $response = $this->delete('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/deleteOne?' . http_build_query([
+        $response = $this->json('PUT', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/replaceOne?' . http_build_query([
             'filter' => '{"id":1,"name":"Leanne Graham","email":"Sincere@april.biz"}',
-        ]));
+        ]), [
+            "id" => 3,
+            "name" => "Clementine Bauch",
+            "username" => "Samantha",
+            "email" => "Nathan@yesenia.net",
+            "address" => [
+                "street" => "Douglas Extension",
+                "suite" => "Suite 847",
+                "city" => "McKenziehaven",
+                "zipcode" => "59590-4157",
+                "geo" => [
+                    "lat" => "-68.6102",
+                    "lng" => "-47.0653"
+                ]
+            ],
+            "phone" => "1-463-123-4447",
+            "website" => "ramiro.info",
+            "company" => [
+                "name" => "Romaguera-Jacobson",
+                "catchPhrase" => "Face to face bifurcated interface",
+                "bs" => "e-enable strategic applications"
+            ]
+        ]);
 
         $response->assertStatus(200);
     }

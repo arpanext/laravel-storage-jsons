@@ -9,23 +9,26 @@ composer require arpanext/laravel-storage-jsons
 ```
 
 ```shell
-php artisan route:list
+php artisan route:list --compact
 ```
 
 ```shell
-+--------+----------+---------------------------------------------------------------------------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------+------------+
-| Domain | Method   | URI                                                                                   | Name                                                  | Action                                                                                                   | Middleware |
-+--------+----------+---------------------------------------------------------------------------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------+------------+
-|        | GET|HEAD | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findMany   | api.v1.storage.jsons.databases.collections.findMany   | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\FindManyController   |            |
-|        | GET|HEAD | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findOne    | api.v1.storage.jsons.databases.collections.findOne    | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\FindOneController    |            |
-|        | POST     | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/insertMany | api.v1.storage.jsons.databases.collections.insertMany | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\InsertManyController |            |
-|        | POST     | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/insertOne  | api.v1.storage.jsons.databases.collections.insertOne  | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\InsertOneController  |            |
-|        | PUT      | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/replaceOne | api.v1.storage.jsons.databases.collections.replaceOne | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\ReplaceOneController |            |
-|        | PATCH    | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/updateMany | api.v1.storage.jsons.databases.collections.updateMany | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\UpdateManyController |            |
-|        | PATCH    | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/updateOne  | api.v1.storage.jsons.databases.collections.updateOne  | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\UpdateOneController  |            |
-|        | POST     | api/v1/storage/jsons/databases/{databaseName}/commands/execute                        | api.v1.storage.jsons.databases.commands.execute       | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Commands\ExecuteController       |            |
-+--------+----------+---------------------------------------------------------------------------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------+------------+
-
++----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
+| Method   | URI                                                                                   | Action                                                                                                   |
++----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
+| GET|HEAD | /                                                                                     | Closure                                                                                                  |
+| GET|HEAD | api/user                                                                              | Closure                                                                                                  |
+| DELETE   | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/deleteMany | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\DeleteManyController |
+| DELETE   | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/deleteOne  | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\DeleteOneController  |
+| GET|HEAD | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findMany   | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\FindManyController   |
+| GET|HEAD | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findOne    | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\FindOneController    |
+| POST     | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/insertMany | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\InsertManyController |
+| POST     | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/insertOne  | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\InsertOneController  |
+| PUT      | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/replaceOne | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\ReplaceOneController |
+| PATCH    | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/updateMany | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\UpdateManyController |
+| PATCH    | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/updateOne  | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\UpdateOneController  |
+| POST     | api/v1/storage/jsons/databases/{databaseName}/commands/execute                        | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Commands\ExecuteController       |
++----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
 ```
 
 Update the config file in config/vendor/arpanext/swagger/schemas/index.php:

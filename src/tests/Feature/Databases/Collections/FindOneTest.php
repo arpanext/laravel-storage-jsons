@@ -1,17 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class InsertOneTest extends TestCase
+class FindOneTest extends TestCase
 {
     /**
-     * Get many object.
-     *
      * @return void
      */
-    public function testCreated()
+    public function testOK()
     {
         $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/insertOne', [
             "id" => 1,
@@ -37,6 +35,21 @@ class InsertOneTest extends TestCase
             ]
         ]);
 
-        $response->assertStatus(201);
+        $response = $this->get('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/findOne?' . http_build_query([
+            'filter' => '{"id":1,"name":"Leanne Graham","email":"Sincere@april.biz"}',
+            'options' => '{"sort":{"_id":-1}}',
+        ]));
+
+        $response->assertStatus(200);
+    }
+
+    public function testNotFound()
+    {
+        $response = $this->get('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/findOne?' . http_build_query([
+            'filter' => '{"id":3,"name":"Leanne Graham","email":"Sincere@april.biz"}',
+            'options' => '{"sort":{"_id":-1}}',
+        ]));
+
+        $response->assertStatus(404);
     }
 }

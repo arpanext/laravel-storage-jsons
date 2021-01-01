@@ -1,17 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Databases\Collections;
 
 use Tests\TestCase;
 
-class InsertManyTest extends TestCase
+class DeleteManyTest extends TestCase
 {
     /**
-     * Get many object.
-     *
      * @return void
      */
-    public function testCreated()
+    public function testOK()
     {
         $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/insertMany', [
             [
@@ -62,6 +60,10 @@ class InsertManyTest extends TestCase
             ]
         ]);
 
-        $response->assertStatus(201);
+        $response = $this->delete('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/deleteMany?' . http_build_query([
+            'filter' => '{ "$or": [ { "name": "Leanne Graham" }, { "name": "Ervin Howell" } ] }',
+        ]));
+
+        $response->assertStatus(200);
     }
 }
