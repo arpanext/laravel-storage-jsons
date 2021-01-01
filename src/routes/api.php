@@ -12,5 +12,7 @@ Route::name('storage.jsons.databases.')->group(function () {
         Route::patch('/updateOne', 'Storage\Jsons\Databases\Collections\UpdateOneController')->name('updateOne');
         Route::patch('/updateMany', 'Storage\Jsons\Databases\Collections\UpdateManyController')->name('updateMany');
         Route::put('/replaceOne', 'Storage\Jsons\Databases\Collections\ReplaceOneController')->name('replaceOne');
+        Route::delete('/deleteOne', 'Storage\Jsons\Databases\Collections\DeleteOneController')->name('deleteOne');
+        Route::delete('/deleteMany', 'Storage\Jsons\Databases\Collections\DeleteManyController')->name('deleteMany');
     });
 });
