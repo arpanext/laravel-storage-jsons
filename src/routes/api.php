@@ -10,5 +10,6 @@ Route::name('storage.jsons.databases.')->group(function () {
         Route::get('/findMany', 'Storage\Jsons\Databases\Collections\FindManyController')->name('findMany');
         Route::get('/findOne', 'Storage\Jsons\Databases\Collections\FindOneController')->name('findOne');
         Route::patch('/updateOne', 'Storage\Jsons\Databases\Collections\UpdateOneController')->name('updateOne');
+        Route::patch('/updateMany', 'Storage\Jsons\Databases\Collections\UpdateManyController')->name('updateMany');
     });
 });

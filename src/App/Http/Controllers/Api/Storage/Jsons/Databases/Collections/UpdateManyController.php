@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class FindManyController extends Controller
+class UpdateManyController extends Controller
 {
     /**
-     * @OA\Get(
-     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findMany",
+     * @OA\Patch(
+     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/updateMany",
      *     tags={"Collections"},
      *     description="",
      *     @OA\Parameter(
@@ -46,16 +46,16 @@ class FindManyController extends Controller
      *             example="{ ""$or"": [ { ""name"": ""Leanne Graham"" }, { ""name"": ""Ervin Howell"" } ] }",
      *         )
      *     ),
-     *     @OA\Parameter(
-     *         name="options",
-     *         in="query",
-     *         description="options",
+     *     @OA\RequestBody(
+     *         description="Document",
      *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             format="string",
-     *             example="{""sort"":{""_id"":-1}, ""limit"": 10}",
-     *         )
+     *         @OA\MediaType(
+     *             mediaType="application/vnd.api+json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 example="{""$set"": {""name"": ""John Doe""}}"
+     *             ),
+     *         ),
      *     ),
      *     @OA\Response(
      *         response="200",
@@ -65,60 +65,11 @@ class FindManyController extends Controller
      *             @OA\Schema(
      *                 type="object",
      *                 example=
-"[
-  {
-    ""_id"": {
-      ""$oid"": ""5fee74266f94007dbc35f2c0""
-    },
-    ""id"": 1,
-    ""name"": ""Leanne Graham"",
-    ""username"": ""Bret"",
-    ""email"": ""Sincere@april.biz"",
-    ""address"": {
-      ""street"": ""Kulas Light"",
-      ""suite"": ""Apt. 556"",
-      ""city"": ""Gwenborough"",
-      ""zipcode"": ""92998-3874"",
-      ""geo"": {
-        ""lat"": ""-37.3159"",
-        ""lng"": ""81.1496""
-      }
-    },
-    ""phone"": ""1-770-736-8031 x56442"",
-    ""website"": ""hildegard.org"",
-    ""company"": {
-      ""name"": ""Romaguera-Crona"",
-      ""catchPhrase"": ""Multi-layered client-server neural-net"",
-      ""bs"": ""harness real-time e-markets""
-    }
-  },
-  {
-    ""_id"": {
-      ""$oid"": ""5fee71d76f94007dbc35f2be""
-    },
-    ""id"": 1,
-    ""name"": ""Leanne Graham"",
-    ""username"": ""Bret"",
-    ""email"": ""Sincere@april.biz"",
-    ""address"": {
-      ""street"": ""Kulas Light"",
-      ""suite"": ""Apt. 556"",
-      ""city"": ""Gwenborough"",
-      ""zipcode"": ""92998-3874"",
-      ""geo"": {
-        ""lat"": ""-37.3159"",
-        ""lng"": ""81.1496""
-      }
-    },
-    ""phone"": ""1-770-736-8031 x56442"",
-    ""website"": ""hildegard.org"",
-    ""company"": {
-      ""name"": ""Romaguera-Crona"",
-      ""catchPhrase"": ""Multi-layered client-server neural-net"",
-      ""bs"": ""harness real-time e-markets""
-    }
-  }
-]"
+"{
+  ""matchedCount"": 2,
+  ""modifiedCount"": 2,
+  ""isAcknowledged"": true
+}"
      *             ),
      *         ),
      *     ),
@@ -140,14 +91,16 @@ class FindManyController extends Controller
 
         $filter = json_decode($request->filter);
 
-        $options = json_decode($request->options, true);
-
         if (isset($filter->_id->{'$oid'})) {
             $filter->_id = new \MongoDB\BSON\ObjectId($filter->_id->{'$oid'});
         }
 
-        $cursor = $collection->find($filter, $options);
+        $updateResult = $collection->updateMany($filter, json_decode($request->getContent()));
 
-        return response()->json(array_map(function ($bsonDocument) { return $bsonDocument; }, $cursor->toArray()));
+        return response()->json([
+            'matchedCount' => $updateResult->getMatchedCount(),
+            'modifiedCount' => $updateResult->getModifiedCount(),
+            'isAcknowledged' => $updateResult->isAcknowledged(),
+        ]);
     }
 }
