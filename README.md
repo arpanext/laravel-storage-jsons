@@ -16,8 +16,6 @@ php artisan route:list --compact
 +----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
 | Method   | URI                                                                                   | Action                                                                                                   |
 +----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
-| GET|HEAD | /                                                                                     | Closure                                                                                                  |
-| GET|HEAD | api/user                                                                              | Closure                                                                                                  |
 | DELETE   | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/deleteMany | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\DeleteManyController |
 | DELETE   | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/deleteOne  | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\DeleteOneController  |
 | GET|HEAD | api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findMany   | Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections\FindManyController   |
