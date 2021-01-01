@@ -5,6 +5,7 @@ namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Database
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use MongoDB\BSON\ObjectId;
 
 class UpdateOneController extends Controller
 {
@@ -83,16 +84,12 @@ class UpdateOneController extends Controller
      */
     public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
-        $client = new \MongoDB\Client(
-            'mongodb://root:password@127.0.0.1:27017/admin?retryWrites=true&w=majority'
-        );
-
-        $collection = $client->{$databaseName}->{$collectionName};
+        $collection = app()->Mongo->client->{$databaseName}->{$collectionName};
 
         $filter = json_decode($request->filter);
 
         if (isset($filter->_id->{'$oid'})) {
-            $filter->_id = new \MongoDB\BSON\ObjectId($filter->_id->{'$oid'});
+            $filter->_id = new ObjectId($filter->_id->{'$oid'});
         }
 
         $updateResult = $collection->updateOne($filter, json_decode($request->getContent()));

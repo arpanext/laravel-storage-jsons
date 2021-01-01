@@ -94,6 +94,33 @@ class FindOneController extends Controller
      *             ),
      *         ),
      *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Not Found",
+     *         @OA\MediaType(
+     *             mediaType="application/vnd.api+json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 example=
+"{
+  ""errors"": [
+    {
+      ""status"": 404,
+      ""title"": ""Not Found"",
+      ""detail"": ""Not Found"",
+      ""links"": [
+        {
+          ""about"": {
+            ""href"": ""https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404""
+          }
+        }
+      ]
+    }
+  ]
+}"
+     *             ),
+     *         ),
+     *     ),
      * )
      */
 
@@ -104,11 +131,7 @@ class FindOneController extends Controller
      */
     public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
-        $client = new \MongoDB\Client(
-            'mongodb://root:password@127.0.0.1:27017/admin?retryWrites=true&w=majority'
-        );
-
-        $collection = $client->{$databaseName}->{$collectionName};
+        $collection = app()->Mongo->client->{$databaseName}->{$collectionName};
 
         $filter = json_decode($request->filter);
 
@@ -120,25 +143,25 @@ class FindOneController extends Controller
 
         $bsonDocument = $collection->findOne($filter, $options);
 
-        if (is_null($bsonDocument)) {
-            return response()->json([
-                'errors' => [
-                    [
-                        'status' => 404,
-                        'title' => 'Not Found',
-                        'detail' => 'Not Found',
-                        'links' => [
-                            [
-                                'about' => [
-                                    'href' => 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404',
-                                ],
+        if ($bsonDocument) {
+            return response()->json($bsonDocument);
+        }
+
+        return response()->json([
+            'errors' => [
+                [
+                    'status' => 404,
+                    'title' => 'Not Found',
+                    'detail' => 'Not Found',
+                    'links' => [
+                        [
+                            'about' => [
+                                'href' => 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404',
                             ],
                         ],
                     ],
                 ],
-            ], 404);
-        }
-
-        return response()->json($bsonDocument);
+            ],
+        ], 404);
     }
 }

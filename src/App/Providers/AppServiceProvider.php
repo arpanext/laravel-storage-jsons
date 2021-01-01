@@ -2,6 +2,7 @@
 
 namespace Arpanext\Storage\Jsons\App\Providers;
 
+use Arpanext\Storage\Jsons\App\Services\Mongo;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('Mongo', function () {
+            return new Mongo();
+        });
     }
 }

@@ -136,11 +136,7 @@ class InsertManyController extends Controller
      */
     public function __invoke(Request $request, string $databaseName, string $collectionName): JsonResponse
     {
-        $client = new \MongoDB\Client(
-            'mongodb://root:password@127.0.0.1:27017/admin?retryWrites=true&w=majority'
-        );
-
-        $collection = $client->{$databaseName}->{$collectionName};
+        $collection = app()->Mongo->client->{$databaseName}->{$collectionName};
 
         $insertManyResult = $collection->insertMany(json_decode($request->getContent()));
 

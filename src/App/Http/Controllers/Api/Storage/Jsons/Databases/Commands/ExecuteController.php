@@ -71,11 +71,7 @@ class ExecuteController extends Controller
      */
     public function __invoke(Request $request, string $databaseName): JsonResponse
     {
-        $client = new \MongoDB\Client(
-            'mongodb://root:password@127.0.0.1:27017/admin?retryWrites=true&w=majority'
-        );
-
-        $cursor = $client->{$databaseName}->command(json_decode($request->getContent()));
+        $cursor = app()->Mongo->client->{$databaseName}->command(json_decode($request->getContent()));
 
         return response()->json(array_map(function ($bsonDocument) { return $bsonDocument; }, $cursor->toArray()));
     }
