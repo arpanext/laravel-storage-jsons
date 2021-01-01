@@ -83,6 +83,6 @@ class DeleteOneController extends Controller
         return response()->json([
             'deletedCount' => $deleteResult->getDeletedCount(),
             'isAcknowledged' => $deleteResult->isAcknowledged(),
-        ]);
+        ], 200);
     }
 }

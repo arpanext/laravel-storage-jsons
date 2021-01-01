@@ -96,6 +96,6 @@ class UpdateOneController extends Controller
             'matchedCount' => $updateResult->getMatchedCount(),
             'modifiedCount' => $updateResult->getModifiedCount(),
             'isAcknowledged' => $updateResult->isAcknowledged(),
-        ]);
+        ], 200);
     }
 }

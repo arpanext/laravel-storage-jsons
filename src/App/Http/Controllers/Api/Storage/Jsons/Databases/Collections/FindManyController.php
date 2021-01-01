@@ -142,6 +142,6 @@ class FindManyController extends Controller
 
         $cursor = $collection->find($filter, $options);
 
-        return response()->json(array_map(function ($bsonDocument) { return $bsonDocument; }, $cursor->toArray()));
+        return response()->json(array_map(function ($bsonDocument) { return $bsonDocument; }, $cursor->toArray()), 200);
     }
 }

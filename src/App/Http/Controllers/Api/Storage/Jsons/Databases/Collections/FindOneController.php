@@ -142,7 +142,7 @@ class FindOneController extends Controller
         $bsonDocument = $collection->findOne($filter, $options);
 
         if ($bsonDocument) {
-            return response()->json($bsonDocument);
+            return response()->json($bsonDocument, 200);
         }
 
         return response()->json([
