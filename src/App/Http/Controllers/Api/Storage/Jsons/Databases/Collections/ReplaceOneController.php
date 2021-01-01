@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use MongoDB\BSON\ObjectId;
-class FindOneController extends Controller
+
+class ReplaceOneController extends Controller
 {
     /**
-     * @OA\Get(
-     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/findOne",
+     * @OA\Put(
+     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/replaceOne",
      *     tags={"Collections"},
      *     description="",
      *     @OA\Parameter(
@@ -46,29 +47,15 @@ class FindOneController extends Controller
      *             example="{""id"":1,""name"":""Leanne Graham"",""email"":""Sincere@april.biz""}",
      *         )
      *     ),
-     *     @OA\Parameter(
-     *         name="options",
-     *         in="query",
-     *         description="options",
+     *     @OA\RequestBody(
+     *         description="Document",
      *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             format="string",
-     *             example="{""sort"":{""_id"":-1}}",
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response="200",
-     *         description="OK",
      *         @OA\MediaType(
      *             mediaType="application/vnd.api+json",
      *             @OA\Schema(
      *                 type="object",
      *                 example=
 "{
-  ""_id"": {
-    ""$oid"": ""5fee74266f94007dbc35f2c0""
-  },
   ""id"": 1,
   ""name"": ""Leanne Graham"",
   ""username"": ""Bret"",
@@ -95,29 +82,28 @@ class FindOneController extends Controller
      *         ),
      *     ),
      *     @OA\Response(
-     *         response="404",
-     *         description="Not Found",
+     *         response="200",
+     *         description="Created",
      *         @OA\MediaType(
      *             mediaType="application/vnd.api+json",
      *             @OA\Schema(
      *                 type="object",
      *                 example=
 "{
-  ""errors"": [
-    {
-      ""status"": 404,
-      ""title"": ""Not Found"",
-      ""detail"": ""Not Found"",
-      ""links"": [
-        {
-          ""about"": {
-            ""href"": ""https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404""
-          }
-        }
-      ]
-    }
-  ]
+  ""matchedCount"": 1,
+  ""modifiedCount"": 1,
+  ""isAcknowledged"": true
 }"
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request",
+     *         @OA\MediaType(
+     *             mediaType="application/vnd.api+json",
+     *             @OA\Schema(
+     *                 type="object",
      *             ),
      *         ),
      *     ),
@@ -135,33 +121,16 @@ class FindOneController extends Controller
 
         $filter = json_decode($request->filter);
 
-        $options = json_decode($request->options, true);
-
         if (isset($filter->_id->{'$oid'})) {
             $filter->_id = new ObjectId($filter->_id->{'$oid'});
         }
 
-        $bsonDocument = $collection->findOne($filter, $options);
-
-        if ($bsonDocument) {
-            return response()->json($bsonDocument);
-        }
+        $updateResult = $collection->replaceOne($filter, json_decode($request->getContent()));
 
         return response()->json([
-            'errors' => [
-                [
-                    'status' => 404,
-                    'title' => 'Not Found',
-                    'detail' => 'Not Found',
-                    'links' => [
-                        [
-                            'about' => [
-                                'href' => 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ], 404);
+            'matchedCount' => $updateResult->getMatchedCount(),
+            'modifiedCount' => $updateResult->getModifiedCount(),
+            'isAcknowledged' => $updateResult->isAcknowledged(),
+        ]);
     }
 }

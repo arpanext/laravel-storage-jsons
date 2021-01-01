@@ -5,7 +5,7 @@ namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Database
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use MongoDB\BSON\ObjectId;
 class UpdateManyController extends Controller
 {
     /**
@@ -88,7 +88,7 @@ class UpdateManyController extends Controller
         $filter = json_decode($request->filter);
 
         if (isset($filter->_id->{'$oid'})) {
-            $filter->_id = new \MongoDB\BSON\ObjectId($filter->_id->{'$oid'});
+            $filter->_id = new ObjectId($filter->_id->{'$oid'});
         }
 
         $updateResult = $collection->updateMany($filter, json_decode($request->getContent()));

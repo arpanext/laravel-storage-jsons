@@ -5,7 +5,7 @@ namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Database
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use MongoDB\BSON\ObjectId;
 class FindManyController extends Controller
 {
     /**
@@ -139,7 +139,7 @@ class FindManyController extends Controller
         $options = json_decode($request->options, true);
 
         if (isset($filter->_id->{'$oid'})) {
-            $filter->_id = new \MongoDB\BSON\ObjectId($filter->_id->{'$oid'});
+            $filter->_id = new ObjectId($filter->_id->{'$oid'});
         }
 
         $cursor = $collection->find($filter, $options);
