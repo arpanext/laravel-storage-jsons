@@ -1,16 +1,16 @@
 <?php
 
-namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases;
+namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Commands;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CommandController extends Controller
+class ExecuteController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/api/v1/storage/jsons/databases/{databaseName}/command",
+     *     path="/api/v1/storage/jsons/databases/{databaseName}/commands/execute",
      *     tags={"Databases"},
      *     description="",
      *     @OA\Parameter(
@@ -43,15 +43,11 @@ class CommandController extends Controller
      *             @OA\Schema(
      *                 type="object",
      *                 example=
-"{
-  ""data"": [
-    {
-      ""attributes"": {
-        ""ok"": 1
-      }
-    }
-  ]
-}"
+"[
+  {
+    ""ok"": 1
+  }
+]"
      *             ),
      *         ),
      *     ),
@@ -81,12 +77,6 @@ class CommandController extends Controller
 
         $cursor = $client->{$databaseName}->command(json_decode($request->getContent()));
 
-        return response()->json([
-            'data' => array_map(function ($objectId) {
-                return [
-                    'attributes' => $objectId,
-                ];
-            }, $cursor->toArray())
-        ]);
+        return response()->json(array_map(function ($bsonDocument) { return $bsonDocument; }, $cursor->toArray()));
     }
 }

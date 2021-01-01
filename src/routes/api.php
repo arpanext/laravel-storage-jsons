@@ -1,11 +1,14 @@
 <?php
 
-Route::post('/databases/{databaseName}/command', 'Databases\CommandController')->name('command');
-
-Route::post('/databases/{databaseName}/collections/{collectionName}/insertOne', 'Databases\Collections\InsertOneController')->name('insertOne');
-
-Route::post('/databases/{databaseName}/collections/{collectionName}/insertMany', 'Databases\Collections\InsertManyController')->name('insertMany');
-
-Route::get('/databases/{databaseName}/collections/{collectionName}/findMany', 'Databases\Collections\FindManyController')->name('findMany');
-
-Route::get('/databases/{databaseName}/collections/{collectionName}/findOne', 'Databases\Collections\FindOneController')->name('findOne');
+Route::name('storage.jsons.databases.')->group(function () {
+    Route::prefix('/storage/jsons/databases/{databaseName}')->name('commands.')->group(function () {
+        Route::post('/commands/execute', 'Storage\Jsons\Databases\Commands\ExecuteController')->name('execute');
+    });
+    Route::prefix('/storage/jsons/databases/{databaseName}/collections/{collectionName}')->name('collections.')->group(function () {
+        Route::post('/insertOne', 'Storage\Jsons\Databases\Collections\InsertOneController')->name('insertOne');
+        Route::post('/insertMany', 'Storage\Jsons\Databases\Collections\InsertManyController')->name('insertMany');
+        Route::get('/findMany', 'Storage\Jsons\Databases\Collections\FindManyController')->name('findMany');
+        Route::get('/findOne', 'Storage\Jsons\Databases\Collections\FindOneController')->name('findOne');
+        Route::patch('/updateOne', 'Storage\Jsons\Databases\Collections\UpdateOneController')->name('updateOne');
+    });
+});

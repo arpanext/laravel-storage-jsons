@@ -89,29 +89,6 @@ class InsertManyController extends Controller
       ""catchPhrase"": ""Proactive didactic contingency"",
       ""bs"": ""synergize scalable supply-chains""
     }
-  },
-  {
-    ""id"": 3,
-    ""name"": ""Clementine Bauch"",
-    ""username"": ""Samantha"",
-    ""email"": ""Nathan@yesenia.net"",
-    ""address"": {
-      ""street"": ""Douglas Extension"",
-      ""suite"": ""Suite 847"",
-      ""city"": ""McKenziehaven"",
-      ""zipcode"": ""59590-4157"",
-      ""geo"": {
-        ""lat"": ""-68.6102"",
-        ""lng"": ""-47.0653""
-      }
-    },
-    ""phone"": ""1-463-123-4447"",
-    ""website"": ""ramiro.info"",
-    ""company"": {
-      ""name"": ""Romaguera-Jacobson"",
-      ""catchPhrase"": ""Face to face bifurcated interface"",
-      ""bs"": ""e-enable strategic applications""
-    }
   }
 ]"
      *             ),
@@ -126,20 +103,15 @@ class InsertManyController extends Controller
      *                 type="object",
      *                 example=
 "{
-  ""data"": [
+  ""insertedIds"": [
     {
-      ""type"": ""collection"",
-      ""id"": ""5febd7d9dbf443384045c3bd""
+      ""$oid"": ""5fee75d36f94007dbc35f2c5""
     },
     {
-      ""type"": ""collection"",
-      ""id"": ""5febd7d9dbf443384045c3be""
-    },
-    {
-      ""type"": ""collection"",
-      ""id"": ""5febd7d9dbf443384045c3bf""
+      ""$oid"": ""5fee75d36f94007dbc35f2c6""
     }
-  ]
+  ],
+  ""isAcknowledged"": true
 }"
      *             ),
      *         ),
@@ -173,12 +145,10 @@ class InsertManyController extends Controller
         $insertManyResult = $collection->insertMany(json_decode($request->getContent()));
 
         return response()->json([
-            'data' => array_map(function ($objectId) use ($collectionName) {
-                return [
-                    'type' => $collectionName,
-                    'id' => (string) $objectId,
-                ];
-            }, $insertManyResult->getInsertedIds())
+            'insertedIds' => array_map(function ($objectId) {
+                return $objectId;
+            }, $insertManyResult->getInsertedIds()),
+            'isAcknowledged' => $insertManyResult->isAcknowledged(),
         ]);
     }
 }

@@ -15,12 +15,12 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->router->group(
             [
-                'namespace' => 'Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons',
+                'namespace' => 'Arpanext\Storage\Jsons\App\Http\Controllers\Api',
                 'middleware' => [
                     //
                 ],
-                'as' => 'api.v1.storage.jsons.',
-                'prefix' => '/api/v1/storage/jsons',
+                'as' => 'api.v1.',
+                'prefix' => '/api/v1',
             ],
             function () {
                 require __DIR__ . '/../../routes/api.php';

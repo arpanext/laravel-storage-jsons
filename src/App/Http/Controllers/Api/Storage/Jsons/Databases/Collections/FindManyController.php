@@ -54,7 +54,7 @@ class FindManyController extends Controller
      *         @OA\Schema(
      *             type="string",
      *             format="string",
-     *             example="{""sort"":{""_id"":-1}}",
+     *             example="{""sort"":{""_id"":-1}, ""limit"": 10}",
      *         )
      *     ),
      *     @OA\Response(
@@ -65,100 +65,60 @@ class FindManyController extends Controller
      *             @OA\Schema(
      *                 type="object",
      *                 example=
-"{
-  ""data"": [
-    {
-      ""type"": ""collection"",
-      ""id"": ""5febd891dbf443384045c3c1"",
-      ""attributes"": {
-        ""_id"": {
-          ""$oid"": ""5febd891dbf443384045c3c1""
-        },
-        ""id"": 1,
-        ""name"": ""Leanne Graham"",
-        ""username"": ""Bret"",
-        ""email"": ""Sincere@april.biz"",
-        ""address"": {
-          ""street"": ""Kulas Light"",
-          ""suite"": ""Apt. 556"",
-          ""city"": ""Gwenborough"",
-          ""zipcode"": ""92998-3874"",
-          ""geo"": {
-            ""lat"": ""-37.3159"",
-            ""lng"": ""81.1496""
-          }
-        },
-        ""phone"": ""1-770-736-8031 x56442"",
-        ""website"": ""hildegard.org"",
-        ""company"": {
-          ""name"": ""Romaguera-Crona"",
-          ""catchPhrase"": ""Multi-layered client-server neural-net"",
-          ""bs"": ""harness real-time e-markets""
-        }
+"[
+  {
+    ""_id"": {
+      ""$oid"": ""5fee74266f94007dbc35f2c0""
+    },
+    ""id"": 1,
+    ""name"": ""Leanne Graham"",
+    ""username"": ""Bret"",
+    ""email"": ""Sincere@april.biz"",
+    ""address"": {
+      ""street"": ""Kulas Light"",
+      ""suite"": ""Apt. 556"",
+      ""city"": ""Gwenborough"",
+      ""zipcode"": ""92998-3874"",
+      ""geo"": {
+        ""lat"": ""-37.3159"",
+        ""lng"": ""81.1496""
       }
     },
-    {
-      ""type"": ""collection"",
-      ""id"": ""5febd891dbf443384045c3c2"",
-      ""attributes"": {
-        ""_id"": {
-          ""$oid"": ""5febd891dbf443384045c3c2""
-        },
-        ""id"": 2,
-        ""name"": ""Ervin Howell"",
-        ""username"": ""Antonette"",
-        ""email"": ""Shanna@melissa.tv"",
-        ""address"": {
-          ""street"": ""Victor Plains"",
-          ""suite"": ""Suite 879"",
-          ""city"": ""Wisokyburgh"",
-          ""zipcode"": ""90566-7771"",
-          ""geo"": {
-            ""lat"": ""-43.9509"",
-            ""lng"": ""-34.4618""
-          }
-        },
-        ""phone"": ""010-692-6593 x09125"",
-        ""website"": ""anastasia.net"",
-        ""company"": {
-          ""name"": ""Deckow-Crist"",
-          ""catchPhrase"": ""Proactive didactic contingency"",
-          ""bs"": ""synergize scalable supply-chains""
-        }
-      }
-    },
-    {
-      ""type"": ""collection"",
-      ""id"": ""5febd891dbf443384045c3c3"",
-      ""attributes"": {
-        ""_id"": {
-          ""$oid"": ""5febd891dbf443384045c3c3""
-        },
-        ""id"": 3,
-        ""name"": ""Clementine Bauch"",
-        ""username"": ""Samantha"",
-        ""email"": ""Nathan@yesenia.net"",
-        ""address"": {
-          ""street"": ""Douglas Extension"",
-          ""suite"": ""Suite 847"",
-          ""city"": ""McKenziehaven"",
-          ""zipcode"": ""59590-4157"",
-          ""geo"": {
-            ""lat"": ""-68.6102"",
-            ""lng"": ""-47.0653""
-          }
-        },
-        ""phone"": ""1-463-123-4447"",
-        ""website"": ""ramiro.info"",
-        ""company"": {
-          ""name"": ""Romaguera-Jacobson"",
-          ""catchPhrase"": ""Face to face bifurcated interface"",
-          ""bs"": ""e-enable strategic applications""
-        }
-      }
+    ""phone"": ""1-770-736-8031 x56442"",
+    ""website"": ""hildegard.org"",
+    ""company"": {
+      ""name"": ""Romaguera-Crona"",
+      ""catchPhrase"": ""Multi-layered client-server neural-net"",
+      ""bs"": ""harness real-time e-markets""
     }
-  ]
-}"
+  },
+  {
+    ""_id"": {
+      ""$oid"": ""5fee71d76f94007dbc35f2be""
+    },
+    ""id"": 1,
+    ""name"": ""Leanne Graham"",
+    ""username"": ""Bret"",
+    ""email"": ""Sincere@april.biz"",
+    ""address"": {
+      ""street"": ""Kulas Light"",
+      ""suite"": ""Apt. 556"",
+      ""city"": ""Gwenborough"",
+      ""zipcode"": ""92998-3874"",
+      ""geo"": {
+        ""lat"": ""-37.3159"",
+        ""lng"": ""81.1496""
+      }
+    },
+    ""phone"": ""1-770-736-8031 x56442"",
+    ""website"": ""hildegard.org"",
+    ""company"": {
+      ""name"": ""Romaguera-Crona"",
+      ""catchPhrase"": ""Multi-layered client-server neural-net"",
+      ""bs"": ""harness real-time e-markets""
+    }
+  }
+]"
      *             ),
      *         ),
      *     ),
@@ -188,14 +148,6 @@ class FindManyController extends Controller
 
         $cursor = $collection->find($filter, $options);
 
-        return response()->json([
-            'data' => array_map(function ($document) use ($collectionName) {
-                return [
-                    'type' => $collectionName,
-                    'id' => (string) $document->_id,
-                    'attributes' => $document,
-                ];
-            }, $cursor->toArray())
-        ]);
+        return response()->json(array_map(function ($bsonDocument) { return $bsonDocument; }, $cursor->toArray()));
     }
 }

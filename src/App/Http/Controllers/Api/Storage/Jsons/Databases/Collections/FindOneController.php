@@ -66,35 +66,29 @@ class FindOneController extends Controller
      *                 type="object",
      *                 example=
 "{
-  ""data"": {
-    ""type"": ""collection"",
-    ""id"": ""5febd891dbf443384045c3c1"",
-    ""attributes"": {
-      ""_id"": {
-        ""$oid"": ""5febd891dbf443384045c3c1""
-      },
-      ""id"": 1,
-      ""name"": ""Leanne Graham"",
-      ""username"": ""Bret"",
-      ""email"": ""Sincere@april.biz"",
-      ""address"": {
-        ""street"": ""Kulas Light"",
-        ""suite"": ""Apt. 556"",
-        ""city"": ""Gwenborough"",
-        ""zipcode"": ""92998-3874"",
-        ""geo"": {
-          ""lat"": ""-37.3159"",
-          ""lng"": ""81.1496""
-        }
-      },
-      ""phone"": ""1-770-736-8031 x56442"",
-      ""website"": ""hildegard.org"",
-      ""company"": {
-        ""name"": ""Romaguera-Crona"",
-        ""catchPhrase"": ""Multi-layered client-server neural-net"",
-        ""bs"": ""harness real-time e-markets""
-      }
+  ""_id"": {
+    ""$oid"": ""5fee74266f94007dbc35f2c0""
+  },
+  ""id"": 1,
+  ""name"": ""Leanne Graham"",
+  ""username"": ""Bret"",
+  ""email"": ""Sincere@april.biz"",
+  ""address"": {
+    ""street"": ""Kulas Light"",
+    ""suite"": ""Apt. 556"",
+    ""city"": ""Gwenborough"",
+    ""zipcode"": ""92998-3874"",
+    ""geo"": {
+      ""lat"": ""-37.3159"",
+      ""lng"": ""81.1496""
     }
+  },
+  ""phone"": ""1-770-736-8031 x56442"",
+  ""website"": ""hildegard.org"",
+  ""company"": {
+    ""name"": ""Romaguera-Crona"",
+    ""catchPhrase"": ""Multi-layered client-server neural-net"",
+    ""bs"": ""harness real-time e-markets""
   }
 }"
      *             ),
@@ -124,9 +118,9 @@ class FindOneController extends Controller
             $filter->_id = new \MongoDB\BSON\ObjectId($filter->_id->{'$oid'});
         }
 
-        $document = $collection->findOne($filter, $options);
+        $bsonDocument = $collection->findOne($filter, $options);
 
-        if (is_null($document)) {
+        if (is_null($bsonDocument)) {
             return response()->json([
                 'errors' => [
                     [
@@ -145,12 +139,6 @@ class FindOneController extends Controller
             ], 404);
         }
 
-        return response()->json([
-            'data' => [
-                'type' => $collectionName,
-                'id' => (string) $document->_id,
-                'attributes' => $document,
-            ],
-        ]);
+        return response()->json($bsonDocument);
     }
 }
