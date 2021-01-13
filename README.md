@@ -1,6 +1,8 @@
 # Laravel Storage Jsons
 
-# Requirements
+## Requirements
+
+### PHP MongoDB Extension
 
 Install the PHP MongoDB Extension before installing the PHP Library for MongoDB. You can install the extension using PECL on the command line:
 
