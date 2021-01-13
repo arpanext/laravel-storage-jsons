@@ -1,4 +1,4 @@
-name: laravel-laravel-storage-jsons
+name: storage-jsons-jsons
 
 on:
   push:
@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create a temp folder
-        run: mkdir -p /tmp/packages/arpanext/laravel-laravel-storage-jsons
+        run: mkdir -p /tmp/packages/arpanext/storage-jsons-jsons
       - name: Move the package source
-        run: mv -v $(ls -A .) /tmp/packages/arpanext/laravel-laravel-storage-jsons
+        run: mv -v $(ls -A .) /tmp/packages/arpanext/storage-jsons-jsons
       - name: Create a laravel project
         run: composer create-project laravel/laravel .
       - name: Require laravel-swagger-schemas
@@ -28,11 +28,11 @@ jobs:
       - name: Move the package source
         run: mv -v /tmp/packages .
       - name: Register the package into the composer.json
-        run: sed -i '/"require"/i \ \ \ \ "repositories":[{ "type":"path","url":"./packages/arpanext/laravel-laravel-storage-jsons","options":{"symlink":true}}],' ./composer.json
+        run: sed -i '/"require"/i \ \ \ \ "repositories":[{ "type":"path","url":"./packages/arpanext/storage-jsons-jsons","options":{"symlink":true}}],' ./composer.json
       - name: Dumps the autoloader
         run: composer dumpautoload
       - name: Install the package
-        run: composer require arpanext/laravel-laravel-storage-jsons
+        run: composer require arpanext/storage-jsons-jsons
       - name: Create archive
         run: tar -czvf /tmp/project.tar.gz .
       - uses: actions/upload-artifact@v2
@@ -50,5 +50,5 @@ jobs:
       - name: Extract archive
         run: tar -xzvf /tmp/project.tar.gz
       - name: Run tests
-        run: XDEBUG_MODE=coverage vendor/bin/phpunit packages/arpanext/laravel-laravel-storage-jsons --configuration=packages/arpanext/laravel-laravel-storage-jsons/phpunit.xml --coverage-text
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit packages/arpanext/storage-jsons-jsons --configuration=packages/arpanext/storage-jsons-jsons/phpunit.xml --coverage-text
       
