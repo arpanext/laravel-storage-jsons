@@ -1,5 +1,19 @@
 # Laravel Storage Jsons
 
+# Requirements
+
+Install the PHP MongoDB Extension before installing the PHP Library for MongoDB. You can install the extension using PECL on the command line:
+
+```shell
+sudo pecl install mongodb
+```
+
+Finally, add the following line to your php.ini file:
+
+```shell
+extension=mongodb.so
+```
+
 ## Installation
 
 Install the package via composer:
