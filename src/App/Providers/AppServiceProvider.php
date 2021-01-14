@@ -2,8 +2,9 @@
 
 namespace Arpanext\Storage\Jsons\App\Providers;
 
-use Arpanext\Storage\Jsons\App\Services\Mongo;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Arpanext\Storage\Jsons\App\Services\Mongo;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Config::get('database.connections.mongodb') ?: $this->mergeConfigFrom(__DIR__ . '/../../config/database/connections/mongodb.php', 'database.connections.mongodb');
+
         $this->app->bind('Mongo', function () {
             return new Mongo();
         });

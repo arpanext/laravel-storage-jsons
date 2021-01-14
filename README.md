@@ -24,6 +24,18 @@ Install the package via composer:
 composer require arpanext/laravel-storage-jsons
 ```
 
+Update the .env file:
+
+```shell
+DB_CONNECTION=mongodb
+DB_HOST=127.0.0.1
+DB_PORT=27017
+DB_DATABASE=database
+DB_USERNAME=root
+DB_PASSWORD=password
+DB_AUTHENTICATION_DATABASE=admin
+```
+
 ```shell
 php artisan route:list --compact
 ```
