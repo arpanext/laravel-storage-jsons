@@ -17,14 +17,14 @@ jobs:
         run: mv -v $(ls -A .) /tmp/packages/arpanext/laravel-storage-jsons
       - name: Create a laravel project
         run: composer create-project laravel/laravel .
-      - name: Require laravel-swagger-schemas
-        run: composer require arpanext/laravel-swagger-schemas
-      - name: Vendor publish for laravel-swagger-schemas
-        run: php artisan vendor:publish --provider=Arpanext\\Swagger\\Schemas\\App\\Providers\\AppServiceProvider --tag="swagger-schemas"
-      - name: Require laravel-swagger-consoles
-        run: composer require arpanext/laravel-swagger-consoles
-      - name: Vendor publish for laravel-swagger-schemas
-        run: php artisan vendor:publish --provider=Arpanext\\Swagger\\Consoles\\App\\Providers\\AppServiceProvider --tag="swagger-consoles"
+      - name: Require laravel-swagger-schemas-api
+        run: composer require arpanext/laravel-swagger-schemas-api
+      - name: Vendor publish for laravel-swagger-schemas-api
+        run: php artisan vendor:publish --provider=Arpanext\\Swagger\\Schemas\\App\\Providers\\AppServiceProvider --tag="swagger-schemas-api"
+      - name: Require laravel-swagger-consoles-ui
+        run: composer require arpanext/laravel-swagger-consoles-ui
+      - name: Vendor publish for laravel-swagger-schemas-api
+        run: php artisan vendor:publish --provider=Arpanext\\Swagger\\Consoles\\App\\Providers\\AppServiceProvider --tag="swagger-consoles-ui"
       - name: Move the package source
         run: mv -v /tmp/packages .
       - name: Register the package into the composer.json
