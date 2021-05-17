@@ -61,13 +61,13 @@ Update the config file in config/vendor/arpanext/swagger/schemas/index.php:
 
 ```php
 return [
-    'jsons' => [
+    'default' => [
         'path' => 'vendor/arpanext/laravel-storage-jsons/src/App/Http/Controllers/Api',
     ],
 ];
 ```
 
-[http://127.0.0.1:8000/swagger/consoles](http://127.0.0.1:8000/swagger/consoles)
+[http://127.0.0.1:8000/swagger/consoles/default](http://127.0.0.1:8000/swagger/consoles/default)
 
 ## Testing
 

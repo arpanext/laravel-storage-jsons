@@ -39,6 +39,12 @@ jobs:
         with:
           name: artifact
           path: /tmp/project.tar.gz
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.4.0
+        with:
+          mongodb-version: 4.2.2
+
   tests:
     needs: [install]
     runs-on: ubuntu-latest
@@ -51,4 +57,3 @@ jobs:
         run: tar -xzvf /tmp/project.tar.gz
       - name: Run tests
         run: XDEBUG_MODE=coverage vendor/bin/phpunit packages/arpanext/laravel-storage-jsons --configuration=packages/arpanext/laravel-storage-jsons/phpunit.xml --coverage-text
-      
