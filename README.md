@@ -1,4 +1,4 @@
-# Laravel Mongo Http Api
+# Laravel Mongo Shell Api
 
 ## Requirements
 
@@ -21,7 +21,7 @@ extension=mongodb.so
 Install the package via composer:
 
 ```shell script
-composer require arpanext/laravel-mongo-http-api
+composer require arpanext/laravel-mongo-shell-api
 ```
 
 Update the .env file:
@@ -62,7 +62,7 @@ Update the config file in config/vendor/arpanext/swagger/schemas/index.php:
 ```php
 return [
     'default' => [
-        'path' => base_path('vendor/arpanext/laravel-mongo-http-api/src/App/Http/Controllers/Api'),
+        'path' => base_path('vendor/arpanext/laravel-mongo-shell-api/src/App/Http/Controllers/Api'),
     ],
 ];
 ```
@@ -72,5 +72,5 @@ return [
 ## Testing
 
 ```shell
-vendor/bin/phpunit vendor/arpanext/laravel-mongo-http-api --configuration=vendor/arpanext/laravel-mongo-http-api/phpunit.xml --do-not-cache-result --coverage-text --coverage-html=coverage/html/laravel-mongo-http-api
+vendor/bin/phpunit vendor/arpanext/laravel-mongo-shell-api --configuration=vendor/arpanext/laravel-mongo-shell-api/phpunit.xml --do-not-cache-result --coverage-text --coverage-html=coverage/html/laravel-mongo-shell-api
 ```
