@@ -1,4 +1,4 @@
-name: laravel-storage-jsons
+name: laravel-mongo-http-api
 
 on:
   push:
@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create a temp folder
-        run: mkdir -p /tmp/packages/arpanext/laravel-storage-jsons
+        run: mkdir -p /tmp/packages/arpanext/laravel-mongo-http-api
       - name: Move the package source
-        run: mv -v $(ls -A .) /tmp/packages/arpanext/laravel-storage-jsons
+        run: mv -v $(ls -A .) /tmp/packages/arpanext/laravel-mongo-http-api
       - name: Create a laravel project
         run: composer create-project laravel/laravel .
       - name: Require laravel-swagger-schemas-api
@@ -28,13 +28,13 @@ jobs:
       - name: Move the package source
         run: mv -v /tmp/packages .
       - name: Register the package into the composer.json
-        run: sed -i '/"require"/i \ \ \ \ "repositories":[{ "type":"path","url":"./packages/arpanext/laravel-storage-jsons","options":{"symlink":true}}],' ./composer.json
+        run: sed -i '/"require"/i \ \ \ \ "repositories":[{ "type":"path","url":"./packages/arpanext/laravel-mongo-http-api","options":{"symlink":true}}],' ./composer.json
       - name: Dumps the autoloader
         run: composer dumpautoload
       - name: Install the package
-        run: composer require arpanext/laravel-storage-jsons
+        run: composer require arpanext/laravel-mongo-http-api
       - name: Copy the .env.example
-        run:  cp -rf ./packages/arpanext/laravel-storage-jsons/src/.env.example ./.env
+        run:  cp -rf ./packages/arpanext/laravel-mongo-http-api/src/.env.example ./.env
       - name: Set the application key
         run:  php artisan key:generate
       - name: Create archive
@@ -69,4 +69,4 @@ jobs:
       - name: Extract archive
         run: tar -xzvf /tmp/project.tar.gz
       - name: Run tests
-        run: XDEBUG_MODE=coverage vendor/bin/phpunit packages/arpanext/laravel-storage-jsons --configuration=packages/arpanext/laravel-storage-jsons/phpunit.xml --coverage-text
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit packages/arpanext/laravel-mongo-http-api --configuration=packages/arpanext/laravel-mongo-http-api/phpunit.xml --coverage-text
