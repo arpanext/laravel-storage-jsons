@@ -1,17 +1,17 @@
 <?php
 
-namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections;
+namespace Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use MongoDB\BSON\ObjectId;
 
-class DeleteOneController extends Controller
+class ReplaceOneController extends Controller
 {
     /**
-     * @OA\Delete(
-     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/deleteOne",
+     * @OA\Put(
+     *     path="/api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/replaceOne",
      *     tags={"Collections"},
      *     description="",
      *     @OA\Parameter(
@@ -47,18 +47,63 @@ class DeleteOneController extends Controller
      *             example="{""id"":1,""name"":""Leanne Graham"",""email"":""Sincere@april.biz""}",
      *         )
      *     ),
-     *     @OA\Response(
-     *         response="200",
-     *         description="OK",
+     *     @OA\RequestBody(
+     *         description="Document",
+     *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/vnd.api+json",
      *             @OA\Schema(
      *                 type="object",
      *                 example=
 "{
-  ""deletedCount"": 1,
+  ""id"": 1,
+  ""name"": ""Leanne Graham"",
+  ""username"": ""Bret"",
+  ""email"": ""Sincere@april.biz"",
+  ""address"": {
+    ""street"": ""Kulas Light"",
+    ""suite"": ""Apt. 556"",
+    ""city"": ""Gwenborough"",
+    ""zipcode"": ""92998-3874"",
+    ""geo"": {
+      ""lat"": ""-37.3159"",
+      ""lng"": ""81.1496""
+    }
+  },
+  ""phone"": ""1-770-736-8031 x56442"",
+  ""website"": ""hildegard.org"",
+  ""company"": {
+    ""name"": ""Romaguera-Crona"",
+    ""catchPhrase"": ""Multi-layered client-server neural-net"",
+    ""bs"": ""harness real-time e-markets""
+  }
+}"
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Created",
+     *         @OA\MediaType(
+     *             mediaType="application/vnd.api+json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 example=
+"{
+  ""matchedCount"": 1,
+  ""modifiedCount"": 1,
   ""isAcknowledged"": true
 }"
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request",
+     *         @OA\MediaType(
+     *             mediaType="application/vnd.api+json",
+     *             @OA\Schema(
+     *                 type="object",
      *             ),
      *         ),
      *     ),
@@ -78,11 +123,12 @@ class DeleteOneController extends Controller
 
         ! isset($filter->_id->{'$oid'}) ?: $filter->_id = new ObjectId($filter->_id->{'$oid'});
 
-        $deleteResult = $collection->deleteOne($filter);
+        $updateResult = $collection->replaceOne($filter, json_decode($request->getContent()));
 
         return response()->json([
-            'deletedCount' => $deleteResult->getDeletedCount(),
-            'isAcknowledged' => $deleteResult->isAcknowledged(),
+            'matchedCount' => $updateResult->getMatchedCount(),
+            'modifiedCount' => $updateResult->getModifiedCount(),
+            'isAcknowledged' => $updateResult->isAcknowledged(),
         ], 200);
     }
 }

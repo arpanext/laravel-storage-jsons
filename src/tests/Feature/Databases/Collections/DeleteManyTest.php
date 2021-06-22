@@ -11,7 +11,7 @@ class DeleteManyTest extends TestCase
      */
     public function testOK()
     {
-        $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/insertMany', [
+        $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/mongo/shell/databases/database/collections/collection/insertMany', [
             [
                 "id" => 1,
                 "name" => "Leanne Graham",
@@ -60,7 +60,7 @@ class DeleteManyTest extends TestCase
             ]
         ]);
 
-        $response = $this->delete('http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/deleteMany?' . http_build_query([
+        $response = $this->delete('http://127.0.0.1:8000/api/v1/mongo/shell/databases/database/collections/collection/deleteMany?' . http_build_query([
             'filter' => '{ "$or": [ { "name": "Leanne Graham" }, { "name": "Ervin Howell" } ] }',
         ]));
 

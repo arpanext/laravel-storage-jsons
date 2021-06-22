@@ -1,16 +1,16 @@
 <?php
 
-namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections;
+namespace Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
-class InsertOneController extends Controller
+use MongoDB\BSON\ObjectId;
+class UpdateManyController extends Controller
 {
     /**
-     * @OA\Post(
-     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/insertOne",
+     * @OA\Patch(
+     *     path="/api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/updateMany",
      *     tags={"Collections"},
      *     description="",
      *     @OA\Parameter(
@@ -35,6 +35,17 @@ class InsertOneController extends Controller
      *             example="collection",
      *         )
      *     ),
+     *     @OA\Parameter(
+     *         name="filter",
+     *         in="query",
+     *         description="filter",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="string",
+     *             example="{ ""$or"": [ { ""name"": ""Leanne Graham"" }, { ""name"": ""Ervin Howell"" } ] }",
+     *         )
+     *     ),
      *     @OA\RequestBody(
      *         description="Document",
      *         required=true,
@@ -42,57 +53,23 @@ class InsertOneController extends Controller
      *             mediaType="application/vnd.api+json",
      *             @OA\Schema(
      *                 type="object",
-     *                 example=
-"{
-  ""id"": 1,
-  ""name"": ""Leanne Graham"",
-  ""username"": ""Bret"",
-  ""email"": ""Sincere@april.biz"",
-  ""address"": {
-    ""street"": ""Kulas Light"",
-    ""suite"": ""Apt. 556"",
-    ""city"": ""Gwenborough"",
-    ""zipcode"": ""92998-3874"",
-    ""geo"": {
-      ""lat"": ""-37.3159"",
-      ""lng"": ""81.1496""
-    }
-  },
-  ""phone"": ""1-770-736-8031 x56442"",
-  ""website"": ""hildegard.org"",
-  ""company"": {
-    ""name"": ""Romaguera-Crona"",
-    ""catchPhrase"": ""Multi-layered client-server neural-net"",
-    ""bs"": ""harness real-time e-markets""
-  }
-}"
+     *                 example="{""$set"": {""name"": ""John Doe""}}"
      *             ),
      *         ),
      *     ),
      *     @OA\Response(
-     *         response="201",
-     *         description="Created",
+     *         response="200",
+     *         description="OK",
      *         @OA\MediaType(
      *             mediaType="application/vnd.api+json",
      *             @OA\Schema(
      *                 type="object",
      *                 example=
 "{
-  ""insertedId"": {
-    ""$oid"": ""5fee761d6f94007dbc35f2c8""
-  },
+  ""matchedCount"": 2,
+  ""modifiedCount"": 2,
   ""isAcknowledged"": true
 }"
-     *             ),
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response="400",
-     *         description="Bad Request",
-     *         @OA\MediaType(
-     *             mediaType="application/vnd.api+json",
-     *             @OA\Schema(
-     *                 type="object",
      *             ),
      *         ),
      *     ),
@@ -108,11 +85,16 @@ class InsertOneController extends Controller
     {
         $collection = app()->Mongo->getClient()->{$databaseName}->{$collectionName};
 
-        $insertOneResult = $collection->insertOne(json_decode($request->getContent()));
+        $filter = json_decode($request->filter);
+
+        ! isset($filter->_id->{'$oid'}) ?: $filter->_id = new ObjectId($filter->_id->{'$oid'});
+
+        $updateResult = $collection->updateMany($filter, json_decode($request->getContent()));
 
         return response()->json([
-            'insertedId' => $insertOneResult->getInsertedId(),
-            'isAcknowledged' => $insertOneResult->isAcknowledged(),
-        ], 201);
+            'matchedCount' => $updateResult->getMatchedCount(),
+            'modifiedCount' => $updateResult->getModifiedCount(),
+            'isAcknowledged' => $updateResult->isAcknowledged(),
+        ], 200);
     }
 }

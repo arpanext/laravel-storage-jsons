@@ -13,14 +13,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Arpanext\\Storage\\Jsons\\": "/src/"
+            "Arpanext\\Mongo\\Shell\\": "/src/"
         }
     },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
-                "Arpanext\\Storage\\Jsons\\App\\Providers\\AppServiceProvider"
+                "Arpanext\\Mongo\\Shell\\App\\Providers\\AppServiceProvider"
             ]
         }
     }

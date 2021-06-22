@@ -13,7 +13,7 @@ class UpdateOneTest extends TestCase
      */
     public function testOK()
     {
-        $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/insertOne', [
+        $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/mongo/shell/databases/database/collections/collection/insertOne', [
             "id" => 1,
             "name" => "Leanne Graham",
             "username" => "Bret",
@@ -37,7 +37,7 @@ class UpdateOneTest extends TestCase
             ]
         ]);
 
-        $response = $this->json('PATCH', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/collections/collection/updateOne?' . http_build_query([
+        $response = $this->json('PATCH', 'http://127.0.0.1:8000/api/v1/mongo/shell/databases/database/collections/collection/updateOne?' . http_build_query([
             'filter' => '{"id":1,"name":"Leanne Graham","email":"Sincere@april.biz"}',
         ]), [
             '$set' => [

@@ -1,16 +1,17 @@
 <?php
 
-namespace Arpanext\Storage\Jsons\App\Http\Controllers\Api\Storage\Jsons\Databases\Collections;
+namespace Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use MongoDB\BSON\ObjectId;
-class UpdateManyController extends Controller
+
+class DeleteOneController extends Controller
 {
     /**
-     * @OA\Patch(
-     *     path="/api/v1/storage/jsons/databases/{databaseName}/collections/{collectionName}/updateMany",
+     * @OA\Delete(
+     *     path="/api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/deleteOne",
      *     tags={"Collections"},
      *     description="",
      *     @OA\Parameter(
@@ -43,19 +44,8 @@ class UpdateManyController extends Controller
      *         @OA\Schema(
      *             type="string",
      *             format="string",
-     *             example="{ ""$or"": [ { ""name"": ""Leanne Graham"" }, { ""name"": ""Ervin Howell"" } ] }",
+     *             example="{""id"":1,""name"":""Leanne Graham"",""email"":""Sincere@april.biz""}",
      *         )
-     *     ),
-     *     @OA\RequestBody(
-     *         description="Document",
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="application/vnd.api+json",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 example="{""$set"": {""name"": ""John Doe""}}"
-     *             ),
-     *         ),
      *     ),
      *     @OA\Response(
      *         response="200",
@@ -66,8 +56,7 @@ class UpdateManyController extends Controller
      *                 type="object",
      *                 example=
 "{
-  ""matchedCount"": 2,
-  ""modifiedCount"": 2,
+  ""deletedCount"": 1,
   ""isAcknowledged"": true
 }"
      *             ),
@@ -89,12 +78,11 @@ class UpdateManyController extends Controller
 
         ! isset($filter->_id->{'$oid'}) ?: $filter->_id = new ObjectId($filter->_id->{'$oid'});
 
-        $updateResult = $collection->updateMany($filter, json_decode($request->getContent()));
+        $deleteResult = $collection->deleteOne($filter);
 
         return response()->json([
-            'matchedCount' => $updateResult->getMatchedCount(),
-            'modifiedCount' => $updateResult->getModifiedCount(),
-            'isAcknowledged' => $updateResult->isAcknowledged(),
+            'deletedCount' => $deleteResult->getDeletedCount(),
+            'isAcknowledged' => $deleteResult->isAcknowledged(),
         ], 200);
     }
 }

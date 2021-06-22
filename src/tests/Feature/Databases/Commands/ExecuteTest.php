@@ -13,7 +13,7 @@ class ExecuteTest extends TestCase
      */
     public function testOK()
     {
-        $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/storage/jsons/databases/database/commands/execute', [
+        $response = $this->json('POST', 'http://127.0.0.1:8000/api/v1/mongo/shell/databases/database/commands/execute', [
             'ping' => 1,
           ]);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Arpanext\Storage\Jsons\App\Services;
+namespace Arpanext\Mongo\Shell\App\Services;
 
 use MongoDB\Client;
 use Illuminate\Support\Facades\Config;
