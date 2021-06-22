@@ -1,4 +1,4 @@
-# Laravel Storage Jsons
+# Laravel Mongo Http Api
 
 ## Requirements
 
@@ -21,19 +21,19 @@ extension=mongodb.so
 Install the package via composer:
 
 ```shell script
-composer require arpanext/laravel-storage-jsons
+composer require arpanext/laravel-mongo-http-api
 ```
 
 Update the .env file:
 
 ```shell
-DB_CONNECTION=mongodb
-DB_HOST=127.0.0.1
-DB_PORT=27017
-DB_DATABASE=database
-DB_USERNAME=root
-DB_PASSWORD=password
-DB_AUTHENTICATION_DATABASE=admin
+MONGO_CONNECTION=mongo
+MONGO_HOST=127.0.0.1
+MONGO_PORT=27017
+MONGO_DATABASE=database
+MONGO_USERNAME=root
+MONGO_PASSWORD=password
+MONGO_AUTHENTICATION_DATABASE=admin
 ```
 
 ```shell
@@ -62,7 +62,7 @@ Update the config file in config/vendor/arpanext/swagger/schemas/index.php:
 ```php
 return [
     'default' => [
-        'path' => 'vendor/arpanext/laravel-storage-jsons/src/App/Http/Controllers/Api',
+        'path' => base_path('vendor/arpanext/laravel-mongo-http-api/src/App/Http/Controllers/Api'),
     ],
 ];
 ```
@@ -72,5 +72,5 @@ return [
 ## Testing
 
 ```shell
-vendor/bin/phpunit vendor/arpanext/laravel-storage-jsons --configuration=vendor/arpanext/laravel-storage-jsons/phpunit.xml --do-not-cache-result --coverage-text --coverage-html=coverage/html/laravel-storage-jsons
+vendor/bin/phpunit vendor/arpanext/laravel-mongo-http-api --configuration=vendor/arpanext/laravel-mongo-http-api/phpunit.xml --do-not-cache-result --coverage-text --coverage-html=coverage/html/laravel-mongo-http-api
 ```

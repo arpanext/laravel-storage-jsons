@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Config::get('database.connections.mongodb') ?: $this->mergeConfigFrom(__DIR__ . '/../../config/database/connections/mongodb.php', 'database.connections.mongodb');
+        Config::get('database.connections.mongo') ?: $this->mergeConfigFrom(__DIR__ . '/../../config/database/connections/mongo.php', 'database.connections.mongo');
 
         $this->app->bind('Mongo', function () {
             return new Mongo();
