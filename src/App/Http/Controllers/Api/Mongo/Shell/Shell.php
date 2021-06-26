@@ -2,7 +2,7 @@
 
 /**
  * @OA\Info(
- *     title="Jsons",
+ *     title="Mongo Shell",
  *     description="",
  *     version="1",
  * )

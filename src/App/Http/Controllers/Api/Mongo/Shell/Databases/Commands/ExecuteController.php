@@ -11,7 +11,7 @@ class ExecuteController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/mongo/shell/databases/{databaseName}/commands/execute",
-     *     tags={"Databases"},
+     *     tags={"Commands"},
      *     description="",
      *     @OA\Parameter(
      *         name="databaseName",

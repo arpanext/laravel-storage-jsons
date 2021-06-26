@@ -41,9 +41,10 @@ php artisan route:list --compact
 ```
 
 ```shell
-+----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
-| Method   | URI                                                                                   | Action                                                                                                   |
-+----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
++----------+-------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| Method   | URI                                                                                 | Action                                                                                               |
++----------+-------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| GET|HEAD | api/v1/mongo/shell/databases/list                                                   | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\ListController                   |
 | DELETE   | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/deleteMany | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\DeleteManyController |
 | DELETE   | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/deleteOne  | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\DeleteOneController  |
 | GET|HEAD | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/findMany   | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\FindManyController   |
@@ -54,7 +55,7 @@ php artisan route:list --compact
 | PATCH    | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/updateMany | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\UpdateManyController |
 | PATCH    | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/updateOne  | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\UpdateOneController  |
 | POST     | api/v1/mongo/shell/databases/{databaseName}/commands/execute                        | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Commands\ExecuteController       |
-+----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
++----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+
 ```
 
 Update the config file in config/vendor/arpanext/swagger/schemas/index.php:
