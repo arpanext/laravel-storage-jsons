@@ -10,7 +10,12 @@ Route::name('mongo.shell')->group(function () {
         Route::post('/commands/execute', 'Mongo\Shell\Databases\Commands\ExecuteController')->name('.execute');
     });
 
+    Route::prefix('/mongo/shell/databases/{databaseName}/collections')->name('.databases.collections')->group(function () {
+        Route::get('/list', 'Mongo\Shell\Databases\Collections\ListController')->name('.list');
+    });
+
     Route::prefix('/mongo/shell/databases/{databaseName}/collections/{collectionName}')->name('.databases.collections')->group(function () {
+        Route::get('/list', 'Mongo\Shell\Databases\Collections\ListController')->name('.list');
         Route::post('/insertOne', 'Mongo\Shell\Databases\Collections\InsertOneController')->name('.insertOne');
         Route::post('/insertMany', 'Mongo\Shell\Databases\Collections\InsertManyController')->name('.insertMany');
         Route::get('/findOne', 'Mongo\Shell\Databases\Collections\FindOneController')->name('.findOne');
