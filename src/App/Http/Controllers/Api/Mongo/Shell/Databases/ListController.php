@@ -5,7 +5,7 @@ namespace Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use MongoDB\BSON\ObjectId;
+
 class ListController extends Controller
 {
     /**
@@ -13,6 +13,17 @@ class ListController extends Controller
      *     path="/api/v1/mongo/shell/databases/list",
      *     tags={"Databases"},
      *     description="",
+     *     @OA\Parameter(
+     *         name="filter",
+     *         in="query",
+     *         description="filter",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="string",
+     *             example="{""name"": {""$regex"": """"}}",
+     *         )
+     *     ),
      *     @OA\Parameter(
      *         name="options",
      *         in="query",
@@ -72,9 +83,11 @@ class ListController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $options = json_decode($request->options, true);
+        $options = json_decode($request->options);
 
-        $databaseInfoIterator = app()->Mongo->getClient()->listDatabases($options);
+        $options->filter = json_decode($request->filter);
+
+        $databaseInfoIterator = app()->Mongo->getClient()->listDatabases((array) $options);
 
         return response()->json(array_map(function ($databaseInfo) { return $databaseInfo->__debugInfo(); }, iterator_to_array($databaseInfoIterator, true)));
     }

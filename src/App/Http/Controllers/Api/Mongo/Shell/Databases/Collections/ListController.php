@@ -5,8 +5,7 @@ namespace Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Co
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use MongoDB\BSON\ObjectId;
-use MongoDB\BSON\Regex;
+
 class ListController extends Controller
 {
     /**
@@ -26,6 +25,17 @@ class ListController extends Controller
      *         )
      *     ),
      *     @OA\Parameter(
+     *         name="filter",
+     *         in="query",
+     *         description="filter",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="string",
+     *             example="{""name"": {""$regex"": """"}}",
+     *         )
+     *     ),
+     *     @OA\Parameter(
      *         name="options",
      *         in="query",
      *         description="options",
@@ -33,7 +43,7 @@ class ListController extends Controller
      *         @OA\Schema(
      *             type="string",
      *             format="string",
-     *             example="{""filter"": {""name"": {""$regex"": """"}}, ""maxTimeMS"": 1000}",
+     *             example="{""maxTimeMS"": 1000}",
      *         )
      *     ),
      *     @OA\Response(
@@ -99,11 +109,11 @@ class ListController extends Controller
      */
     public function __invoke(Request $request, string $databaseName): JsonResponse
     {
-        $options = json_decode($request->options, true);
+        $options = json_decode($request->options);
 
-        ! isset($options->filter->name->{'$regex'}) ?: $options->filter->name = new Regex($options->filter->name->{'$regex'});
+        $options->filter = json_decode($request->filter);
 
-        $collectionInfoIterator = app()->Mongo->getClient()->{$databaseName}->listCollections($options);
+        $collectionInfoIterator = app()->Mongo->getClient()->{$databaseName}->listCollections((array) $options);
 
         return response()->json(array_map(function ($collectionInfo) { return $collectionInfo->__debugInfo(); }, iterator_to_array($collectionInfoIterator, true)));
     }

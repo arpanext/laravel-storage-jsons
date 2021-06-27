@@ -1,13 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::name('mongo.shell')->group(function () {
 
     Route::prefix('/mongo/shell/databases/list')->name('.databases')->group(function () {
         Route::get('/', 'Mongo\Shell\Databases\ListController')->name('.list');
     });
 
-    Route::prefix('/mongo/shell/databases/{databaseName}')->name('.databases.commands')->group(function () {
-        Route::post('/commands/execute', 'Mongo\Shell\Databases\Commands\ExecuteController')->name('.execute');
+    Route::prefix('/mongo/shell/databases/{databaseName}')->name('.databases')->group(function () {
+        Route::post('/command', 'Mongo\Shell\Databases\CommandController')->name('.command');
     });
 
     Route::prefix('/mongo/shell/databases/{databaseName}/collections')->name('.databases.collections')->group(function () {

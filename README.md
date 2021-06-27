@@ -45,16 +45,18 @@ php artisan route:list --compact
 | Method   | URI                                                                                 | Action                                                                                               |
 +----------+-------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
 | GET|HEAD | api/v1/mongo/shell/databases/list                                                   | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\ListController                   |
+| GET|HEAD | api/v1/mongo/shell/databases/{databaseName}/collections/list                        | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\ListController       |
 | DELETE   | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/deleteMany | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\DeleteManyController |
 | DELETE   | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/deleteOne  | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\DeleteOneController  |
 | GET|HEAD | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/findMany   | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\FindManyController   |
 | GET|HEAD | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/findOne    | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\FindOneController    |
 | POST     | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/insertMany | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\InsertManyController |
 | POST     | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/insertOne  | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\InsertOneController  |
+| GET|HEAD | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/list       | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\ListController       |
 | PUT      | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/replaceOne | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\ReplaceOneController |
 | PATCH    | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/updateMany | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\UpdateManyController |
 | PATCH    | api/v1/mongo/shell/databases/{databaseName}/collections/{collectionName}/updateOne  | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Collections\UpdateOneController  |
-| POST     | api/v1/mongo/shell/databases/{databaseName}/commands/execute                        | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Commands\ExecuteController       |
+| POST     | api/v1/mongo/shell/databases/{databaseName}/command                                 | Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\CommandController                |
 +----------+---------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+
 ```
 

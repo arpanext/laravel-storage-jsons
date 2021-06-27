@@ -1,17 +1,17 @@
 <?php
 
-namespace Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases\Commands;
+namespace Arpanext\Mongo\Shell\App\Http\Controllers\Api\Mongo\Shell\Databases;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ExecuteController extends Controller
+class CommandController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/api/v1/mongo/shell/databases/{databaseName}/commands/execute",
-     *     tags={"Commands"},
+     *     path="/api/v1/mongo/shell/databases/{databaseName}/command",
+     *     tags={"Databases"},
      *     description="",
      *     @OA\Parameter(
      *         name="databaseName",
